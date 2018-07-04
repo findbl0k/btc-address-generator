@@ -19,6 +19,10 @@ function saveString( text, filename ) {
 
 	}
 
+function add_qr_to_scene(result){
+    console.log(result);
+}
+
 // Create an empty scene
 var scene = new THREE.Scene();
 

@@ -535,9 +535,9 @@ li
             
             bulkTextarea = document.getElementById("bulk_addresses");
             paperWalletTextArea = document.getElementById("paperwallet_generate_progress_text");
-            
+
             generate_address();
-            
+
             if (window.location.protocol != "file:")
             {
                 var warningText = document.createElement("div");
@@ -1355,6 +1355,8 @@ li
             qr_div_address.style = "display:block; margin-left: auto; margin-right: auto;";
             
             document.getElementById("address_div").style = "display: table;";
+
+            add_qr_to_scene(result);
         }
         
         // generates address from bytes, then returns the address and qr code if necessary
@@ -1433,9 +1435,9 @@ li
                     div.onmousemove = null;
                     randomnessIndex = 0;
                     randomnessArray = undefined;
-                    generate_address(SHA256(bytes, { asBytes: true }));
+                    var result = generate_address(SHA256(bytes, { asBytes: true }));
                     document.getElementById("randomness_container").style = "display: none;";
-                    return;
+                    return result;
                 }
                 
                 var rect = e.target.getBoundingClientRect();
