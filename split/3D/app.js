@@ -15,6 +15,16 @@ function saveString( text, filename ) { // for .stl file saving
 
 function add_qr_to_scene(result){
     console.log(result);
+
+    // generate meshes for private key QR code
+	var private_qr_width = result[1].getModuleCount();
+
+	// generate meshes for public key QR code
+    var public_qr_width = result[4].getModuleCount();
+
+    console.log(private_qr_width);
+    console.log(public_qr_width);
+
 }
 
 // Create an empty scene

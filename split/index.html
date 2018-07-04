@@ -1315,12 +1315,18 @@ li
         function setQRErrorCorrectionLevel(level)
         {
             qrErrorCorrectionLevel = level;
+
+            var updated_qr_for_scene = [null]; // array to be passed to 3D QR update function
             
             // update qr codes
             var privkey = document.getElementById("privkey_privkey").innerHTML;
             var qr = qrcode(0, qrErrorCorrectionLevel);
+
             qr.addData(privkey);
             qr.make();
+
+            updated_qr_for_scene.push(qr); // add private key qr object
+            updated_qr_for_scene.push(null, null); // push null to array for proper parsing at add_qr_to_scene(result)
             
             document.getElementById("privkey_qr").src = qr.createDataURL(6, 12);
             
@@ -1332,6 +1338,9 @@ li
                 qr.addData(address);
             
             qr.make();
+
+            updated_qr_for_scene.push(qr); // add public key qr object
+            add_qr_to_scene(updated_qr_for_scene);
             
             document.getElementById("address_qr").src = qr.createDataURL(6, 12);
         }
