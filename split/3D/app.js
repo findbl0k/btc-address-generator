@@ -13,8 +13,17 @@ function saveString( text, filename ) { // for .stl file saving
 	save( new Blob( [ text ], { type: 'text/plain' } ), filename );
 }
 
+function exportSTL(){
+	// EXPORT TO STL for 3D PRINTING
+    var exporter = new THREE.STLExporter();
+    saveString( exporter.parse( scene ), 'model.stl' );
+}
+
 function add_qr_to_scene(result){
     console.log(result);
+
+    // destroy the old models
+    scene.remove(group);
 
     // generate meshes for private key QR code
 	var private_qr_width = result[1].getModuleCount();
@@ -25,6 +34,43 @@ function add_qr_to_scene(result){
     console.log(private_qr_width);
     console.log(public_qr_width);
 
+    var geometry = new THREE.BoxGeometry( 4, private_qr_width+4, private_qr_width+4 );
+    var material = new THREE.MeshPhongMaterial( { color: 0xFFFFFF, emissive: 0x072534, side: THREE.DoubleSide } );
+    var base = new THREE.Mesh( geometry, material );
+    base.position.set( 0, (private_qr_width-1)/2, (private_qr_width-1)s/2 );
+
+	// Add plastic wallet to Scene
+
+    group = new THREE.Group();
+    group.add ( base );
+
+	// Start drawing QR codes
+
+    //loop and generate black for each qr.isDark == true
+     for (i = 0; i < private_qr_width; i++) { // i defines height position for each block
+        for (j = 0; j < private_qr_width; j++) { // j defines length position for each block
+
+			if(result[1].isDark(i,j)){
+
+                geometryQR1 = new THREE.BoxGeometry( 4, 1, 1 );
+                materialQR1 = new THREE.MeshPhongMaterial( { color: 0x000000, emissive: 0x002534, side: THREE.DoubleSide } );
+                QR1 = new THREE.Mesh( geometryQR1, materialQR1 );
+                QR1.position.set( 2, i, j );
+
+                group.add(QR1);
+
+			}
+        }
+    }
+
+    group.add(QR1);
+    scene.add( group );
+
+}
+
+function rotateMe(mesh) {
+    mesh.rotation.x += 0.005
+    mesh.rotation.y += 0.005
 }
 
 // Create an empty scene
@@ -66,42 +112,17 @@ var lights = [];
 // FUN STARTS HERE
 // ------------------------------------------------
 
-// Create a Cube Mesh with basic material
-var geometry = new THREE.BoxGeometry( 4, 40, 40 );
-var material = new THREE.MeshPhongMaterial( { color: 0x156289, emissive: 0x072534, side: THREE.DoubleSide } );
-var base = new THREE.Mesh( geometry, material );
-base.position.set( 0, -18, -18 );
-
-// Add cube to Scene
-
 var group = new THREE.Group();
-group.add ( base );
-
-// Start drawing QR codes
-
-var geometry = new THREE.BoxGeometry( 4, 1, 1 );
-var material = new THREE.MeshPhongMaterial( { color: 0x000000, emissive: 0x002534, side: THREE.DoubleSide } );
-var QR1 = new THREE.Mesh( geometry, material );
-QR1.position.set( 2, 0, 0 );
-
-group.add(QR1);
-
 scene.add( group );
 
 // Render Loop
 var render = function () {
   requestAnimationFrame( render );
 
-  group.rotation.x += 0.005;
-  group.rotation.y += 0.005;
+  //rotateMe(group); //rotate the model on each renderloop
 
   // Render the scene
   renderer.render(scene, camera);
 };
 
 render();
-
-
-// EXPORT TO STL for 3D PRINTING
-var exporter = new THREE.STLExporter();
-saveString( exporter.parse( scene ), 'model.stl' );
