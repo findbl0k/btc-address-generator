@@ -56,7 +56,6 @@ function add_qr_to_scene(result){
                 QR1.position.set( 2, i, j );
 
                 group.add(QR1);
-
             }
         }
     }
@@ -73,17 +72,11 @@ function add_qr_to_scene(result){
                 QR2.position.set( -2, i, j );
 
                 group.add(QR2);
-
             }
         }
     }
 
-    scene.add( group );
-}
-
-function rotateMe(mesh) {
-    mesh.rotation.x += 0.001;
-    mesh.rotation.y -= 0.005;
+    scene.add( group ); // add base, and both QR's to three.js 3D scene
 }
 
 var angle = 0;
