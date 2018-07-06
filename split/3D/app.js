@@ -20,7 +20,6 @@ function exportSTL(){ // EXPORT TO STL for 3D PRINTING
 }
 
 function add_qr_to_scene(result){
-    console.log(result);
 
     // destroy the old models
     scene.remove(group);
@@ -30,9 +29,6 @@ function add_qr_to_scene(result){
 
 	// generate meshes for public key QR code
     var public_qr_width = result[4].getModuleCount();
-
-    console.log(private_qr_width);
-    console.log(public_qr_width);
 
     var geometry = new THREE.BoxGeometry( 4, private_qr_width+4, private_qr_width+4 );
     var material = new THREE.MeshPhongMaterial( { color: 0xFFFFFF, emissive: 0x072534, side: THREE.DoubleSide } );
