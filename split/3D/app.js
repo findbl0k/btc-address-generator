@@ -79,6 +79,8 @@ function add_qr_to_scene(result){
     scene.add( group ); // add base, and both QR's to three.js 3D scene
 }
 
+var scene3d = document.getElementById("scene3d"); //we'll render at the scene3d div
+
 var angle = 0;
 var cameraRadius = 100;
 
@@ -93,7 +95,7 @@ function rotateCamera() {
 var scene = new THREE.Scene();
 
 // Create a basic perspective camera
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+var camera = new THREE.PerspectiveCamera( 75, scene3d.offsetWidth/scene3d.offsetHeight, 0.1, 1000 );
 
 // Create a renderer with Antialiasing
 var renderer = new THREE.WebGLRenderer({antialias:true});
@@ -101,16 +103,16 @@ var renderer = new THREE.WebGLRenderer({antialias:true});
 var orbit = new THREE.OrbitControls( camera );
 orbit.enableZoom = false;
 orbit.autoRotate=true;
-camera.position.set( 50, 70, 70 );
+camera.position.set( 50, 70, 50 );
 
 // Configure renderer clear color
-renderer.setClearColor("#000FFF");
+renderer.setClearColor("#FFFFFF");
 
 // Configure renderer size
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( scene3d.offsetWidth, 300 );
 
 // Append Renderer to DOM
-document.body.appendChild( renderer.domElement );
+scene3d.appendChild( renderer.domElement );
 
 var lights = [];
 

@@ -112,6 +112,11 @@ li
     line-height: 40px;
 }
 
+#scene3d {
+    height: 300px;
+    width: 400px;
+}
+
 @media print
 {
     body *
@@ -173,8 +178,6 @@ li
 
 <body>
 
-    <script src="3D/app.js"></script>
-
     <script>
         if (!window.crypto || !window.crypto.getRandomValues)
         {
@@ -187,15 +190,9 @@ li
     
     <div style="display: table; width: 100%;">
         <div id="button_container" style="display: table-cell; padding-right: 10px; border-right: 2px solid #bbbbbb; width: 250px;">
-            <button id="button_layout_generate" style="width: 250px;" onclick="set_layout('generate')" disabled >Single address</button>
-            <br />
-            <button id="button_layout_details" style="width: 250px;" onclick="set_layout('details')">Address details</button>
+            <button id="button_layout_generate" style="width: 250px;" onclick="set_layout('generate')" disabled >Plastic wallet</button>
             <br />
             <button style="width: 250px;" onclick="exportSTL()">Export STL</button>
-            <br />
-            <button id="button_layout_bulk" style="width: 250px;" onclick="set_layout('bulk')">Bulk Generate</button>
-            <br />
-            <button id="button_layout_paper" style="width: 250px;" onclick="set_layout('paper')">Paper wallet</button>
             <br />
             <button id="button_layout_info" style="width: 250px;" onclick="set_layout('info')">Information</button>
             <br />
@@ -203,9 +200,16 @@ li
             <br />
             <button id="button_layout_security" style="width: 250px;" onclick="set_layout('security')">Security tips</button>
         </div>
+
         <div id="main_generate" style="display: table; padding-left: 10px;">
             <div style="display: table-cell; padding-right: 20px;">
-                <div class="title">Single address</div>
+
+                <div class="title">Plastic wallet</div>
+
+                <div id="scene3d"></div>
+                <script src="3D/app.js"></script>
+
+                <br/>
                 
                 <div style="display: table;">
                     <div style="display: table-cell; padding-right: 10px; border-right: 2px solid #bbbbbb;">
@@ -2905,5 +2909,6 @@ li
         }
         
     </script>
+
 </body>
 </html>
