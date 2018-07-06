@@ -103,7 +103,7 @@ var renderer = new THREE.WebGLRenderer({antialias:true});
 var orbit = new THREE.OrbitControls( camera );
 orbit.enableZoom = false;
 orbit.autoRotate=true;
-camera.position.set( 50, 70, 50 );
+camera.position.set( 50, 50, 50 );
 
 // Configure renderer clear color
 renderer.setClearColor("#FFFFFF");
