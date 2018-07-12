@@ -90,6 +90,7 @@ var camera = new THREE.PerspectiveCamera( 75, scene3d.offsetWidth/scene3d.offset
 var renderer = new THREE.WebGLRenderer({antialias:true});
 
 var orbit = new THREE.OrbitControls( camera );
+orbit.enabled = false;
 orbit.enableZoom = false;
 orbit.autoRotate=true;
 camera.position.set( 50, 40, 50 );
