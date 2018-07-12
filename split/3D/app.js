@@ -80,13 +80,6 @@ var scene3d = document.getElementById("scene3d"); //we'll render at the scene3d 
 var angle = 0;
 var cameraRadius = 100;
 
-function rotateCamera() {
-// Use Math.cos and Math.sin to set camera X and Z values based on angle.
-    camera.position.x = cameraRadius * Math.cos( angle )+100;
-    camera.position.z = cameraRadius * Math.sin( angle )+100;
-    angle += 0.01;
-}
-
 // Create an empty scene
 var scene = new THREE.Scene();
 
