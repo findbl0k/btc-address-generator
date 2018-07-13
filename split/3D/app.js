@@ -29,6 +29,7 @@ function add_qr_to_scene(result){
 
 	// generate meshes for public key QR code
     var public_qr_width = result[4].getModuleCount();
+	var QRwidthDiff = private_qr_width-public_qr_width;
 
     var geometry = new THREE.BoxGeometry( 4, private_qr_width+4, private_qr_width+4 );
     var material = new THREE.MeshPhongMaterial( { color: 0xFFFFFF, emissive: 0x072534, side: THREE.DoubleSide } );
@@ -64,12 +65,17 @@ function add_qr_to_scene(result){
             if(result[4].isDark(i,j)){ // generate black for each qr.isDark == true
 
                 var QR2 = new THREE.Mesh( geometryQR, materialQR );
-                QR2.position.set( -2, i+(private_qr_width-public_qr_width)/2, j+(private_qr_width-public_qr_width)/2); //centered with respect to the base
+                QR2.position.set( -2, i+(QRwidthDiff)/2, j+(QRwidthDiff)/2); //centered with respect to the base
 
                 group.add(QR2);
             }
         }
     }
+	
+	if (private_qr_width <= 33){ // must add a spacer for smaller QR codes to get the spacing right, since 
+		var spacer = 1;
+	}
+	else var spacer = 0;
 	
 	// now add edges to private key side for robustness
 	var geometryEdge1 = new THREE.BoxGeometry( 2, private_qr_width+4, 1 );
@@ -86,18 +92,31 @@ function add_qr_to_scene(result){
 	var Edge4 = new THREE.Mesh( geometryEdge1, material ); //reuse white from base
 	Edge4.position.set( 2, (private_qr_width-1)/2, (private_qr_width+1) );
 	
+	group.add(Edge1);
+	group.add(Edge2);
+	group.add(Edge3);
+	group.add(Edge4);
 	
+	// now add edges to public key side for robustness
 	
+	var geometryEdge1 = new THREE.BoxGeometry( 2, private_qr_width+4, QRwidthDiff/2 +1 );
+    var Edge1 = new THREE.Mesh( geometryEdge1, material ); //reuse white from base
+	Edge1.position.set( -2, (private_qr_width-1)/2, -spacer );
 	
+	var geometryEdge2 = new THREE.BoxGeometry( 2, QRwidthDiff/2 +1, private_qr_width+4 );
+    var Edge2 = new THREE.Mesh( geometryEdge2, material ); //reuse white from base
+	Edge2.position.set( -2, -spacer, (private_qr_width-1)/2 );
 	
+	var Edge3 = new THREE.Mesh( geometryEdge2, material ); //reuse white from base
+	Edge3.position.set( -2, (private_qr_width+1)-2+spacer, (private_qr_width-1)/2 );
+	
+	var Edge4 = new THREE.Mesh( geometryEdge1, material ); //reuse white from base
+	Edge4.position.set( -2, (private_qr_width-1)/2, private_qr_width-1+spacer );
 	
 	group.add(Edge1);
 	group.add(Edge2);
 	group.add(Edge3);
 	group.add(Edge4);
-	// now add edges to public key side for robustness
-	
-	
 
     scene.add( group ); // add base, and both QR's to three.js 3D scene
 }
