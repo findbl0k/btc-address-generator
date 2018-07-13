@@ -41,14 +41,15 @@ function add_qr_to_scene(result){
     group.add ( base );
 
     // Start drawing QR codes - private key first
+	var materialQR = new THREE.MeshPhongMaterial( { color: 0x000000, emissive: 0x000000, side: THREE.DoubleSide } );
+	var geometryQR = new THREE.BoxGeometry( 2, 1, 1 );
+	
     for (i = 0; i < private_qr_width; i++) { // i defines height position for each block
         for (j = 0; j < private_qr_width; j++) { // j defines length position for each block
 
             if(result[1].isDark(i,j)){ // generate black for each qr.isDark == true
 
-                var geometryQR1 = new THREE.BoxGeometry( 2, 1, 1 );
-                var materialQR1 = new THREE.MeshPhongMaterial( { color: 0x000000, emissive: 0x000000, side: THREE.DoubleSide } );
-                var QR1 = new THREE.Mesh( geometryQR1, materialQR1 );
+                var QR1 = new THREE.Mesh( geometryQR, materialQR );
                 QR1.position.set( 2, i, j );
 
                 group.add(QR1);
@@ -62,15 +63,24 @@ function add_qr_to_scene(result){
 
             if(result[4].isDark(i,j)){ // generate black for each qr.isDark == true
 
-                var geometryQR2 = new THREE.BoxGeometry( 2, 1, 1 );
-                var materialQR2 = new THREE.MeshPhongMaterial( { color: 0x000000, emissive: 0x000000, side: THREE.DoubleSide } );
-                var QR2 = new THREE.Mesh( geometryQR1, materialQR1 );
-                QR2.position.set( -2, i+(private_qr_width-public_qr_width)/2, j+(private_qr_width-public_qr_width)/2);
+                var QR2 = new THREE.Mesh( geometryQR, materialQR );
+                QR2.position.set( -2, i+(private_qr_width-public_qr_width)/2, j+(private_qr_width-public_qr_width)/2); //centered with respect to the base
 
                 group.add(QR2);
             }
         }
     }
+	
+	// now add edges to private key side for robustness
+	var geometryEdge1 = new THREE.BoxGeometry( 2, private_qr_width+4, 1 );
+    var Edge1 = new THREE.Mesh( geometryEdge1, material ); //reuse white from base
+	Edge1.position.set( 2, (private_qr_width-1)/2, -2 );
+	
+	
+	group.add(Edge1);
+	// now add edges to public key side for robustness
+	
+	
 
     scene.add( group ); // add base, and both QR's to three.js 3D scene
 }
@@ -90,7 +100,7 @@ var camera = new THREE.PerspectiveCamera( 75, scene3d.offsetWidth/scene3d.offset
 var renderer = new THREE.WebGLRenderer({antialias:true});
 
 var orbit = new THREE.OrbitControls( camera );
-orbit.enabled = false;
+//orbit.enabled = false;
 orbit.enableZoom = false;
 orbit.autoRotate=true;
 camera.position.set( 50, 40, 50 );
