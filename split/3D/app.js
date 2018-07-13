@@ -65,7 +65,7 @@ function add_qr_to_scene(result){
                 var geometryQR2 = new THREE.BoxGeometry( 2, 1, 1 );
                 var materialQR2 = new THREE.MeshPhongMaterial( { color: 0x000000, emissive: 0x000000, side: THREE.DoubleSide } );
                 var QR2 = new THREE.Mesh( geometryQR1, materialQR1 );
-                QR2.position.set( -2, i, j );
+                QR2.position.set( -2, i+(private_qr_width-public_qr_width)/2, j+(private_qr_width-public_qr_width)/2);
 
                 group.add(QR2);
             }
