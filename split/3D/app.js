@@ -76,8 +76,25 @@ function add_qr_to_scene(result){
     var Edge1 = new THREE.Mesh( geometryEdge1, material ); //reuse white from base
 	Edge1.position.set( 2, (private_qr_width-1)/2, -2 );
 	
+	var geometryEdge2 = new THREE.BoxGeometry( 2, 1, private_qr_width+4 );
+    var Edge2 = new THREE.Mesh( geometryEdge2, material ); //reuse white from base
+	Edge2.position.set( 2, -2, (private_qr_width-1)/2 );
+	
+	var Edge3 = new THREE.Mesh( geometryEdge2, material ); //reuse white from base
+	Edge3.position.set( 2, (private_qr_width+1), (private_qr_width-1)/2 );
+	
+	var Edge4 = new THREE.Mesh( geometryEdge1, material ); //reuse white from base
+	Edge4.position.set( 2, (private_qr_width-1)/2, (private_qr_width+1) );
+	
+	
+	
+	
+	
 	
 	group.add(Edge1);
+	group.add(Edge2);
+	group.add(Edge3);
+	group.add(Edge4);
 	// now add edges to public key side for robustness
 	
 	
