@@ -1,12 +1,10 @@
-# Bitcoin address generator
-Available at https://kimbatt.github.io/btc-address-generator/
+# Bitcoin PLASTIC WALLET - Create 3D-printable bitcoin wallets
+Available at https://findbl0k.github.io/btc-address-generator/split
 
 ## Features:
+*  Create 3D-printable bitcoin plastic wallets
+*  Modified from an established open source paper wallet
 *  Creation of bech32, segwit (p2sh-p2wpkh), and legacy (p2pkh) addresses
-*  Bulk generate addresses
-*  View details of a private key
-*  Create printable paper wallets
-*  The entire page is a single html file, so it can be saved easily 
 
 ## Libraries used:
 *  BigNumber (BN): https://github.com/indutny/bn.js
